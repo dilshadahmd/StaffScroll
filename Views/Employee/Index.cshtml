@@ -1,0 +1,54 @@
+﻿@model List<StaffScroll.Models.EmployeeViewModel>
+@{
+    ViewData["Title"] = "Employee";
+}
+<h3>
+    @ViewData["Title"]
+</h3>
+<hr />
+<form>
+    <button asp-action="Create" asp-controller="Employee" class="btn btn-primary mb-3">Create</button>
+    <table class="table tatable-responsive table-hover table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>E-mail</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Any())
+            {
+                @foreach(var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.FullName</td>
+                        <td>@employee.DateOfBirth</td>
+                        <td>@employee.Email</td>
+                        <td>@employee.Salary</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-primary">Edit</a>
+                                <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            No Data Available
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

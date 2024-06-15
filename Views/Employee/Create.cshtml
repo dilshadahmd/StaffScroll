@@ -1,0 +1,76 @@
+﻿@model EmployeeViewModel
+@{
+    ViewData["Title"] = "Create Employee";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
+@if (!string.IsNullOrEmpty(@successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Success! </strong>@successMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+else if (!string.IsNullOrEmpty(@errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error! </strong>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form action="Create" method="post">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">
+                <h3>Create Employee</h3>
+            </div>
+            <div class="card-body">
+                <form action="Create" method="post">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label class="form-label">First Name</label>
+                            <input type="text" asp-for="FirstName" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" asp-for="LastName" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" asp-for="DateOfBirth" class="form-control" id="dateOfBirth" name="dateOfBirth">
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label class="form-label">E-mail</label>
+                            <input type="email" asp-for="Email" class="form-control" id="email" name="email" placeholder="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="form-label">Salary</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" min="0" asp-for="Salary" class="form-control" id="salary" name="salary" placeholder="Salary">
+                                <span asp-validation-for="Salary" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-right d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mr-2">Save</button>&nbsp;&nbsp;
+                <a type="button" class="btn btn-secondary" asp-controller="Employee" asp-action="Index">Close</a>
+            </div>
+        </div>
+    </div>
+</form>
+

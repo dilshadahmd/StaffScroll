@@ -3,21 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using StaffScroll.DAL;
 using StaffScroll.Models;
 using StaffScroll.Models.Entities;
+using StaffScroll.Sevices;
 
 namespace StaffScroll.Controllers
 {
     public class EmployeeController : Controller
     {
-        public EmployeeDbContext _context { get; }
-        public EmployeeController(EmployeeDbContext context)
+      //  public EmployeeDbContext _context { get; }
+        public ApplicationDbContext _applicationDbContext { get; }
+        public EmployeeController(ApplicationDbContext applicationDbContext)
         {
-            this._context = context;
+            _applicationDbContext = applicationDbContext;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var employees = _context.Employees.ToList();
+            var employees = _applicationDbContext.Employees.ToList();
             List<EmployeeViewModel> retList = new List<EmployeeViewModel>();
             if (employees.Any())
             {
@@ -57,8 +59,8 @@ namespace StaffScroll.Controllers
                         DateOfBirth = model.DateOfBirth,
                         Salary = model.Salary,
                     };
-                    await _context.Employees.AddAsync(employee);
-                    await _context.SaveChangesAsync();
+                    await _applicationDbContext.Employees.AddAsync(employee);
+                    await _applicationDbContext.SaveChangesAsync();
                     TempData["successMessage"] = "Created Successfully";
                     return RedirectToAction("Index");
                 }

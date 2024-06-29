@@ -8,6 +8,6 @@ namespace StaffScroll.DAL
         public EmployeeDbContext(DbContextOptions options) : base(options)
         {
         }
-        public virtual DbSet<Employee>Employees { get; set; }
+        //public virtual DbSet<Employee>Employees { get; set; }
     }
 }
